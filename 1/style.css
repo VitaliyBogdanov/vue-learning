@@ -1,0 +1,37 @@
+body {
+	background-color: #d5d5d5;
+}
+.wrap {
+	max-width: 960px;
+	width: 100%;
+	margin: auto;
+	padding: 20px;
+}
+
+.list {
+}
+
+.list__item {
+	border: 1px solid #dedede;
+	padding: 15px 10px;
+}
+table td {
+	padding: 10px;
+}
+.list__image img {
+	width: 100px;
+	height: 100px;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	overflow: hidden;
+	display: block;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+	opacity: 0;
+}

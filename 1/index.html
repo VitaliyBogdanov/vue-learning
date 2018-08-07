@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Изучаем Vue - Урок 1</title>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/v-copy" defer></script>
+	<script src="https://vk.com/js/api/openapi.js"></script>
+	<script src="index.js" defer></script>
+
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!--
+  Задание, программа минимум:
+Создать HTML-страничку/в онлайн-редакторе и подключить Vue с CDN
+Создать корневой экземпляр и убедиться что данные из него выводятся на странице
+В данных реализовать хранение списка пользователей (пять хватит; у каждого пользователя предусмотреть хранение имени, фамилии,
+отчества и ссылки на картинку аватарки)
+Показать на странице список пользователей в виде таблицы
+Для пользователей без аватарки выводить сообщение/показывать аватарку по умолчанию
+Добавить заголовок к таблице с указанием общего количества пользователей
+Добавить кнопку для скрытия/отображения всего списка пользователей
+Задание, если захочется большего:
+Подсчитывать количество пользователей не через метод, а через вычисляемое свойство
+Создать фильтр чтобы выводить в таблице данные пользователя в верхнем регистре
+Использовать директиву v-copy для кнопок копирования ФИО каждого пользователя
+Использовать директиву v-tooltip, чтобы выводить справку для кнопки показать/скрыть список
+
+Используется VK API, которое принимает запросы только от [localhost] или по ссылке https://plnkr.co/edit/IEuifkvXnq4BiY26lO92
+-->
+
+
+<main id="app">
+
+	<div class="wrap">
+
+		<h1>{{ title }} ({{ totalUsers  }})</h1>
+
+		<button type="button" @click="toggleList">
+			{{ toggleButtonTitle }}
+		</button>
+
+		<button type="button" @click="fillList">Обновить список</button>
+
+		<transition name="fade">
+
+			<table class="list" v-if="isShown">
+				<thead>
+				<tr>
+					<td>
+						Фото
+					</td>
+					<td>
+						Имя
+					</td>
+					<td>
+						Фамилия
+					</td>
+					<td>
+						Отчестов(ник)
+					</td>
+					<td>
+						Дата рождения
+					</td>
+					<td>
+						Функции
+					</td>
+				</tr>
+				</thead>
+				<tbody>
+				<tr v-for="item in users" :key="item.id" class="list__item">
+					<td class="list__image">
+						<img :src="item.photo_200" alt=""/>
+					</td>
+					<td class="list__name">
+						{{ item.first_name | uppercase }}
+					</td>
+					<td class="list__last_name">
+						{{ item.last_name | uppercase }}
+					</td>
+					<td class="list__nickname">
+						{{ item.nickname | uppercase }}
+					</td>
+					<td class="list__bdate">
+						{{ item.bdate }}
+					</td>
+					<td>
+						<button type="button" v-copy="`${item.full_name}`">Скопировать</button>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+		</transition>
+
+	</div>
+
+</main>
+
+</body>
+</html>
