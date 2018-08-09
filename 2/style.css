@@ -1,0 +1,15 @@
+.wrap {
+	position: relative;
+	overflow: hidden;
+	min-height: 100vh;
+	width: 100%;
+}
+
+.components-transition-leave,
+.components-transition-enter,
+.components-transition-leave-to,
+.components-transition-enter-to {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
