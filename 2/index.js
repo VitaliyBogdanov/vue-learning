@@ -7,24 +7,23 @@ Vue.component('users-list', {
     data: function () {
         return {
             APIpath: 'http://localhost:3000/users',
-            usersTotal: 0,
             users: []
         }
     },
     asyncComputed: {
         users: {
             get: function () {
-                return fetch(this.APIpath).then((response) => {
-                    return response.json();
-                })
+                return fetch(this.APIpath).then(response => response.json())
             },
             default: 'Loading...'
         }
     },
-    filters: {},
     computed: {
         title: function () {
             return `Users list (${this.usersTotal})`
+        },
+        usersTotal: function () {
+            return this.users.length;
         }
     },
     methods: {
@@ -33,17 +32,17 @@ Vue.component('users-list', {
             userId = parseInt(userId, 10);
 
             let confirmation = confirm('Are you sure you want to delete the user?');
-            if (confirmation) {
-
-                let removeOptions = {
-                    method: 'DELETE'
-                };
-
-                fetch(`${this.APIpath}/${userId}`, removeOptions)
-                    .then(() => {
-                        this.removeFromList(userId);
-                    });
+            if (!confirmation) {
+                return
             }
+
+            let removeOptions = {
+                method: 'DELETE'
+            };
+
+            fetch(`${this.APIpath}/${userId}`, removeOptions)
+                .then(() => this.removeFromList(userId));
+
         },
         removeFromList: function (userId) {
             // Подглядел это в статье :D
@@ -52,12 +51,6 @@ Vue.component('users-list', {
         },
         showUser: function (userId) {
             this.$root.$emit('showUser', userId);
-        }
-    },
-    watch: {
-        users: function () {
-            this.usersTotal = this.users.length;
-            console.log('User data is loaded - ', this.users);
         }
     }
 });
@@ -71,30 +64,32 @@ Vue.component('user-info', {
             userId: null
         }
     },
-    props: ['user'],
+    props: {
+        user: {
+            type: [Number, String],
+            required: true
+        }
+    },
     created: function () {
         this.userId = this.user;
     },
     asyncComputed: {
         userData: {
             get: function () {
-                return fetch(`${this.APIpath}/${this.userId}`).then((response) => {
-                    console.log('User data is loaded - ', response);
-                    return response.json();
-                })
+                return fetch(`${this.APIpath}/${this.userId}`).then( response => response.json());
             },
             shouldUpdate: function () {
                 return this.userId !== null
             },
-            watch: function() {
-                this.userId
+            watch: function () {
+                return this.userId
             }
         },
 
     },
     methods: {
         showUsersList: function () {
-            this.$root.$emit('showUsersList');
+            this.$root.$emit('showUsersList')
         }
     },
     watch: {
@@ -113,11 +108,11 @@ new Vue({
         }
     },
     created: function () {
-        this.$on('showUsersList', function() {
+        this.$on('showUsersList', function () {
             this.activeComponent = 'users-list'
         });
 
-        this.$on('showUser', function(userId) {
+        this.$on('showUser', function (userId) {
             this.userId = userId;
             this.activeComponent = 'user-info';
         });

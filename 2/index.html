@@ -94,10 +94,16 @@
 							{{ user.isActive ? 'Yes' : 'No' }}
 						</td>
 						<td>
-							<button type="button" @click="showUser(user.id)" class="btn btn-outline-primary">Edit
+							<button type="button"
+									@click="showUser(user.id)"
+									class="btn btn-outline-primary">
+								Edit
 							</button>
 							<hr>
-							<button @click="removeUser(user.id)" type="button" class="btn btn-outline-danger">Remove
+							<button @click="removeUser(user.id)"
+									type="button"
+									class="btn btn-outline-danger">
+								Remove
 							</button>
 						</td>
 					</tr>
@@ -116,7 +122,10 @@
 				<h1> {{ title }}</h1>
 			</div>
 			<div class="col-12 pb-5">
-				<button type="button" @click="showUsersList">Back to users list</button>
+				<button type="button"
+						@click="showUsersList">
+					Back to users list
+				</button>
 			</div>
 		</div>
 		<div class="row">
@@ -124,9 +133,14 @@
 				<div class="row" v-if="userData">
 					<div class="form-group pt-4 col-12">
 						<div class="custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input" id="customCheck1"
+							<input type="checkbox"
+								   class="custom-control-input"
+								   id="customCheck1"
 								   v-model="userData.isActive">
-							<label class="custom-control-label" for="customCheck1">Active</label>
+							<label class="custom-control-label"
+								   for="customCheck1">
+								Active
+							</label>
 						</div>
 					</div>
 					<div class="col-12 col-lg-4">
@@ -168,6 +182,7 @@
 							<div class="form-group col-md-3 col-12">
 								<label>Access Level</label>
 								<select class="custom-select" v-model="userData.accessLevel">
+									<option value="" disabled>Choose option</option>
 									<option value="admin">Аdmin</option>
 									<option value="user">User</option>
 									<option value="guest">Guest</option>
