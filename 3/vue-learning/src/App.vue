@@ -2,12 +2,14 @@
   <div id="app">
     <div id="nav">
       <router-link to="/" exact>Home</router-link> |
-      <router-link to="/usersList">Users list</router-link>
+      <router-link to="/users-list">Users list</router-link>
     </div>
     <router-view/>
   </div>
 </template>
+
 <style lang="stylus">
+
 #app
   font-family 'Avenir', Helvetica, Arial, sans-serif
   -webkit-font-smoothing antialiased
