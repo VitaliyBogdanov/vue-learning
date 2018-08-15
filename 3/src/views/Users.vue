@@ -1,17 +1,14 @@
 <template>
-
-  <UsersList/>
-
+  <UsersList />
 </template>
 
 <script>
-// @ is an alias to /src
 import UsersList from "@/components/UsersList.vue";
 
 export default {
-  name: "users",
+  name: "Users",
   components: {
-      UsersList
+    UsersList
   }
 };
 </script>
