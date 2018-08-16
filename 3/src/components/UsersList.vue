@@ -85,40 +85,40 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "@/axios";
 
 export default {
   name: "UsersList",
-  data: function() {
+  data() {
     return {
       APIpath: "http://localhost:3000/users",
-      usersTotal: 0,
-      users: []
+      usersTotal: 0
     };
   },
   asyncComputed: {
     users: {
-      get: function() {
-        return fetch(this.APIpath).then(response => {
-          return response.json();
-        });
+      get() {
+        return axios.get().then(response => response.data);
       },
       default: "Loading..."
     }
   },
   computed: {
-    title: function() {
+    title() {
       return `Users list (${this.usersTotal})`;
     }
   },
   watch: {
-    users: function() {
-      this.usersTotal = this.users.length;
-      console.log("User data is loaded - ", this.users);
+    users: {
+      handler() {
+        this.usersTotal = this.users.length;
+        console.log("User data is loaded - ", this.users);
+      },
+      immediate: false
     }
   },
   methods: {
-    removeUser: function(userId) {
+    removeUser(userId) {
       userId = parseInt(userId, 10);
 
       let confirmation = confirm("Are you sure you want to delete the user?");
@@ -126,12 +126,7 @@ export default {
         return;
       }
 
-      let removeOptions = {
-        method: "delete",
-        url: `${this.APIpath}/${userId}`
-      };
-
-      axios(removeOptions).then(() => {
+      axios.delete(`/${userId}`).then(() => {
         this.removeFromList(userId);
       });
     },
@@ -139,7 +134,7 @@ export default {
       this.users = this.users.filter(user => user.id !== userId);
     },
     showUser: function(userId) {
-      this.$root.router.push({ path: `/user/${userId}` });
+      this.$router.push(`/user/${userId}`);
     }
   }
 };

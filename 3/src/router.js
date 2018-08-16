@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "@/views/Home.vue";
 import Users from "@/views/Users.vue";
-import UserInfo from "@/views/UserInfo.vue";
+import UserEdit from "@/views/UserEdit.vue";
 import UserAdd from "@/views/UserAdd.vue";
 
 Vue.use(Router);
@@ -31,10 +31,10 @@ export default new Router({
     {
       path: "/user/:userId",
       name: "user",
-      component: UserInfo,
+      component: UserEdit,
       props: true,
       meta: {
-        title: "User info"
+        title: "User edit"
       }
     },
     {
